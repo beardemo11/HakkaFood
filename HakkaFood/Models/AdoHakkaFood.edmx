@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HakkaFoodDataBaseEntitiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HakkaFoodData">
+          <Key>
+            <PropertyRef Name="HakkaFoodId" />
+          </Key>
+          <Property Name="HakkaFoodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kind" Type="nvarchar" MaxLength="50" />
+          <Property Name="Classification" Type="nvarchar" MaxLength="50" />
+          <Property Name="DishesName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Creative" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpecialtyDishes" Type="nvarchar" MaxLength="50" />
+          <Property Name="Practic" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="HakkaFoodDataBaseEntitiesModelStoreContainer">
+          <EntitySet Name="HakkaFoodData" EntityType="Self.HakkaFoodData" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HakkaFoodDataBaseEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="HakkaFoodData">
+          <Key>
+            <PropertyRef Name="HakkaFoodId" />
+          </Key>
+          <Property Name="HakkaFoodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kind" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Classification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DishesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Creative" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialtyDishes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Practic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="HakkaFoodDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HakkaFoodData" EntityType="Self.HakkaFoodData" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HakkaFoodDataBaseEntitiesModelStoreContainer" CdmEntityContainer="HakkaFoodDataBaseEntities">
+          <EntitySetMapping Name="HakkaFoodData">
+            <EntityTypeMapping TypeName="HakkaFoodDataBaseEntitiesModel.HakkaFoodData">
+              <MappingFragment StoreEntitySet="HakkaFoodData">
+                <ScalarProperty Name="HakkaFoodId" ColumnName="HakkaFoodId" />
+                <ScalarProperty Name="Kind" ColumnName="Kind" />
+                <ScalarProperty Name="Classification" ColumnName="Classification" />
+                <ScalarProperty Name="DishesName" ColumnName="DishesName" />
+                <ScalarProperty Name="Creative" ColumnName="Creative" />
+                <ScalarProperty Name="SpecialtyDishes" ColumnName="SpecialtyDishes" />
+                <ScalarProperty Name="Practic" ColumnName="Practic" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
