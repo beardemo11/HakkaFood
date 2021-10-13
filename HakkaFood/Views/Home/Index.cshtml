@@ -1,77 +1,74 @@
 ﻿@model IEnumerable<HakkaFood.Models.HakkaFoodJsonModel>
 
 @{
-    Layout = null;
+    ViewBag.Title = "取得API資料";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>取得API資料</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<div id="App">
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Kind)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Classification)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DishesName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creative)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpecialtyDishes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Practic)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kind)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Classification)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DishesName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creative)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpecialtyDishes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Practic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-    
+        <thead>
+            <tr>
+                <th>
+                    類別
+                </th>
+                <th>
+                    分類
+                </th>
+                <th>
+                    菜色名稱
+                </th>
+                <th>
+                    創作者
+                </th>
+                <th>
+                    菜餚特色
+                </th>
+                <th>
+                    作法
+                </th>
+                <th>
+                    網址
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kind)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.classification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dishes_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.creative)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.specialty_dishes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Practic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>
+                    @Html.ActionLink("加入資料庫", "InsertData", new {id = item.dishes_name}) |
+                </td>
+            </tr>
+        }
+        </tbody>
     </table>
-</body>
-</html>
+   
+</div>

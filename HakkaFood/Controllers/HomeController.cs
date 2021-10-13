@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HakkaFood.Daos;
 using HakkaFood.Models;
+using Newtonsoft.Json;
 
 namespace HakkaFood.Controllers
 {
@@ -13,25 +14,32 @@ namespace HakkaFood.Controllers
         private HakkaFoodDataBaseEntities db = new HakkaFoodDataBaseEntities();
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public string GetInfo()
-        {
             HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();
 
             List<HakkaFoodJsonModel> hakkaFoodJsonModels = hakkaFoodDao.GetAll().Take(5).ToList();
+
+            return View(hakkaFoodJsonModels);
+        }
+
+
+
+
+        public string InsertData(string id)
+        {
+            HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();
+
+            List<HakkaFoodJsonModel> hakkaFoodJsonModels = hakkaFoodDao.GetAll().Where(x => x.dishes_name == id).ToList();
             string strResult = "false";
             try
             {
                 foreach (var item in hakkaFoodJsonModels)
                 {
                     HakkaFoodData data = new HakkaFoodData();
-                    data.Classification = item.Classification;
-                    data.Creative = item.Creative;
-                    data.SpecialtyDishes = item.SpecialtyDishes;
-                    data.DishesName = item.DishesName;
-                    data.Kind = item.Kind;
+                    data.Classification = item.classification;
+                    data.Creative = item.creative;
+                    data.SpecialtyDishes = item.specialty_dishes;
+                    data.DishesName = item.dishes_name;
+                    data.Kind = item.kind;
                     data.Practic = item.Practic;
                     data.Url = item.Url;
                     db.HakkaFoodData.Add(data);
@@ -40,7 +48,6 @@ namespace HakkaFood.Controllers
                 }
                 return strResult;
 
-                //return View(hakkaFoodJsonModels);
 
             }
             catch (Exception exception)
@@ -50,5 +57,14 @@ namespace HakkaFood.Controllers
 
         }
 
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
