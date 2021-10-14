@@ -19,9 +19,6 @@ namespace HakkaFood.Controllers
             return View();
         }
 
-
-
-
         public string InsertData(string id)
         {
             HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();

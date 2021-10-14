@@ -61,8 +61,8 @@
                 @Html.DisplayFor(modelItem => item.Url)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.HakkaFoodId  }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.HakkaFoodId })
+                @*@Html.ActionLink("Edit", "Edit", new {  id=item.HakkaFoodId  }) |
+                @Html.Action("Home", "Delete", new { id = item.HakkaFoodId })*@
             </td>
         </tr>
     }

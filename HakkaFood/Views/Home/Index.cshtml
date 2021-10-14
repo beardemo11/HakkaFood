@@ -53,7 +53,7 @@
             },
             methods: {
                 GetInfo: function() {
-                    axios.get('@Url.Action("GetInfo")').then(
+                    axios.post('@Url.Action("GetInfo")').then(
                         res => {
                             this.itemlist = res.data;
                             console.log(this.itemlist);
