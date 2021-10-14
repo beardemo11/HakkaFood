@@ -8,67 +8,67 @@
 <h2>取得API資料</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 <div id="App">
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    類別
-                </th>
-                <th>
-                    分類
-                </th>
-                <th>
-                    菜色名稱
-                </th>
-                <th>
-                    創作者
-                </th>
-                <th>
-                    菜餚特色
-                </th>
-                <th>
-                    作法
-                </th>
-                <th>
-                    網址
-                </th>
-                <th></th>
+                <th>@Html.DisplayNameFor(model => model.kind)</th>
+                <th>@Html.DisplayNameFor(model => model.classification)</th>
+                <th>@Html.DisplayNameFor(model => model.dishes_name)</th>
+                <th>@Html.DisplayNameFor(model => model.creative)</th>
+                <th>@Html.DisplayNameFor(model => model.specialty_dishes)</th>
+                <th>@Html.DisplayNameFor(model => model.Practic)</th>
+                <th>@Html.DisplayNameFor(model => model.Url)</th>
             </tr>
         </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
+        <tbody v-for="item in itemlist">
             <tr>
+                <td>{{item.kind}}</td>
+                <td>{{item.classification}}</td>
+                <td>{{item.dishes_name}}</td>
+                <td>{{item.creative}}</td>
+                <td>{{item.specialty_dishes}}</td>
+                <td>{{item.Practic}}</td>
+                <td>{{item.Url}}</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.kind)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.classification)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dishes_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.creative)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.specialty_dishes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Practic)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Url)
-                </td>
-                <td>
-                    @Html.ActionLink("加入資料庫", "InsertData", new {id = item.dishes_name}) |
+                    <button type="button" class="btn text-white bg_3 mr-2" @@click="InsertData(item.dishes_name)" >加到資料庫</button>
                 </td>
             </tr>
-        }
+
         </tbody>
     </table>
-   
 </div>
+
+<script src="~/Scripts/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        const vm = new Vue
+        ({
+            el: '#App',
+            data: {
+                itemlist:[]
+            },
+            methods: {
+                GetInfo: function() {
+                    axios.get('@Url.Action("GetInfo")').then(
+                        res => {
+                            this.itemlist = res.data;
+                            console.log(this.itemlist);
+                        }
+                    )
+                },
+                InsertData: function(id) {
+                    axios.post('@Url.Action("InsertData")', { "id": id}).then((response) => {
+                        Swal.fire(response.data)
+                    });
+                },
+            },
+            mounted: function() {
+                this.GetInfo();
+            }
+
+        });
+</script>
