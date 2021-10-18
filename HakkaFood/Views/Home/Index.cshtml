@@ -33,13 +33,14 @@
                 <td>{{item.Practic}}</td>
                 <td>{{item.Url}}</td>
                 <td>
-                    <button type="button" class="btn text-white bg_3 mr-2" @@click="InsertData(item.dishes_name)" >加到資料庫</button>
+                    <button type="button" class="btn text-white bg_3 mr-2" @@click="InsertData(item.dishes_name)">加到資料庫</button>
                 </td>
             </tr>
 
         </tbody>
     </table>
 </div>
+
 
 <script src="~/Scripts/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -53,17 +54,18 @@
             },
             methods: {
                 GetInfo: function() {
-                    axios.post('@Url.Action("GetInfo")').then(
+                    axios.get('/api/HakkaFood').then(
                         res => {
                             this.itemlist = res.data;
-                            console.log(this.itemlist);
                         }
                     )
                 },
-                InsertData: function(id) {
-                    axios.post('@Url.Action("InsertData")', { "id": id}).then((response) => {
-                        Swal.fire(response.data)
-                    });
+                InsertData: function (value) {
+                    axios
+                        .post('/api/HakkaFood', { "dishes_name": value })
+                        .then((res) => {
+                            Swal.fire(response.data)});
+                        
                 },
             },
             mounted: function() {

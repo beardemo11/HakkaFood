@@ -2,32 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Web;
+using System.Net.Http;
+using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using HakkaFood.Daos;
 using HakkaFood.Models;
 using Newtonsoft.Json;
+using WebGrease.Css.Ast.Selectors;
 
-namespace HakkaFood.Controllers
+namespace HakkaFood.Controllers.api
 {
-    public class HomeController : Controller
+    public class HakkaFoodController : ApiController
     {
         private HakkaFoodDataBaseEntities db = new HakkaFoodDataBaseEntities();
 
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public string InsertData(string id)
+        // GET: api/HakkaFood
+        public IEnumerable<HakkaFoodJsonModel> Get()
         {
             HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();
 
-            List<HakkaFoodJsonModel> hakkaFoodJsonModels = hakkaFoodDao.GetAll().Where(x => x.dishes_name == id).ToList();
-            string strResult = "";
+            var hakkaFoodJsons = hakkaFoodDao.GetAll().Where(x => x.specialty_dishes.Length < 50);
+
+            return hakkaFoodJsons;
+
+        }
+
+        // GET: api/HakkaFood/5
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        // POST: api/HakkaFood
+        public void Post([FromBody] HakkaFoodJsonModel value)
+        {
+            HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();
+
+            List<HakkaFoodJsonModel> hakkaFoodJsonModels = hakkaFoodDao.GetAll().Where(x => x.dishes_name == value.dishes_name).ToList();
+
             try
             {
                 foreach (var item in hakkaFoodJsonModels)
@@ -42,11 +54,9 @@ namespace HakkaFood.Controllers
                     data.Url = item.Url;
                     db.HakkaFoodData.Add(data);
                     db.SaveChanges();
-                    strResult = data.DishesName + "存入資料庫!";
                 }
-                return strResult;
 
-
+                
             }
             catch (Exception exception)
             {
@@ -55,24 +65,15 @@ namespace HakkaFood.Controllers
 
         }
 
-        public string GetInfo(string id)
+        // PUT: api/HakkaFood/5
+        public void Put(int id, [FromBody]string value)
         {
-            HakkaFoodDao hakkaFoodDao = new HakkaFoodDao();
-
-            var hakkaFoodJsons = hakkaFoodDao.GetAll().Where(x => x.specialty_dishes.Length < 50);
-
-            return JsonConvert.SerializeObject(hakkaFoodJsons);
+           
         }
 
-
-
-        protected override void Dispose(bool disposing)
+        // DELETE: api/HakkaFood/5
+        public void Delete(int id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
